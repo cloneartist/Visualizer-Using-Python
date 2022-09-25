@@ -87,7 +87,8 @@ def bubble_sort(draw_info, ascending=True):
             num2 = lst[j+1]
             if (num1 > num2 and ascending) or (num1 < num2 and not ascending):
                 lst[j], lst[j+1] = lst[j+1], lst[j]
-                draw_list(draw_info, {j: draw_info.GREEN, j+1: draw_info.RED})
+                draw_list(draw_info, {j: draw_info.BLACK,
+                          j+1: draw_info.RED}, True)
                 yield True
     return lst
 
@@ -109,7 +110,7 @@ def main():
     sorting_algo_name = "Bubble Sort"
     sorting_algorithm_generator = None
     while run:
-        clock.tick(60)
+        clock.tick(10)
 
         if sorting:
             try:
