@@ -1,3 +1,4 @@
+from pydoc import describe
 import pygame
 import random
 pygame.init()
@@ -36,13 +37,11 @@ class DrawInformation:
         self.start_x = self.SIDE_PAD//2
 
 
-def draw(draw_info,algo_name,ascending):
+def draw(draw_info, algo_name, ascending):
     draw_info.window.fill(draw_info.BACKGROUND_COLOR)
-    
-    
-    
-    
-    title = draw_info.FONT.render(f"{algo_name}-{'Ascending' if ascending else 'Descending'}", 1, draw_info.BLACK)
+
+    title = draw_info.FONT.render(
+        f"{algo_name}-{'Ascending' if ascending else 'Descending'}", 1, draw_info.BLACK)
     draw_info.window.blit(
         title, (draw_info.width/2-title.get_width()/2, 5))
     controls = draw_info.FONT.render(
@@ -100,6 +99,24 @@ def bubble_sort(draw_info, ascending=True):
     return lst
 
 
+def insertion_sort(draw_info, ascending=True):
+    lst = draw_info.lst
+    for i in range(1, len(lst)):
+        curr = lst[i]
+        while True:
+            ascending_sort = i > 0 and lst[i-1] > curr and ascending
+            descending_sort = i > 0 and lst[i-1] < curr and not ascending
+            if not ascending_sort and not descending_sort:
+                break
+            lst[i] = lst[i-1]
+            i = i-1
+            lst[i] = curr
+            draw_list(draw_info, {i-1: draw_info.GREEN,
+                      i: draw_info.RED}, True)
+            yield True
+    return lst
+
+
 def main():
     run = True
     clock = pygame.time.Clock()
@@ -125,7 +142,7 @@ def main():
             except StopIteration:
                 sorting = False
         else:
-            draw(draw_info,sorting_algo_name,ascending)
+            draw(draw_info, sorting_algo_name, ascending)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
