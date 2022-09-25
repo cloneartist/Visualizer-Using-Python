@@ -134,7 +134,7 @@ def main():
     sorting_algo_name = "Bubble Sort"
     sorting_algorithm_generator = None
     while run:
-        clock.tick(10)
+        clock.tick(60)
 
         if sorting:
             try:
@@ -161,6 +161,12 @@ def main():
                 ascending = True
             elif event.key == pygame.K_d and not sorting:
                 ascending = False
+            elif event.key == pygame.K_i and not sorting:
+                sorting_algorithm=insertion_sort
+                sorting_algo_name="Insertion Sort"
+            elif event.key == pygame.K_b and not sorting:
+                sorting_algorithm=bubble_sort
+                sorting_algo_name="Bubble Sort"
 
     pygame.quit()
 
