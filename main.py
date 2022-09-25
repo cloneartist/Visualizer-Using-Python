@@ -116,7 +116,7 @@ def insertion_sort(draw_info, ascending=True):
             lst[i] = lst[i-1]
             i = i-1
             lst[i] = curr
-            draw_list(draw_info, {i-1: draw_info.GREEN,
+            draw_list(draw_info, {i-1: draw_info.BLACK,
                       i: draw_info.RED}, True)
             yield True
     return lst
@@ -159,7 +159,7 @@ def main():
 
         if sorting:
             try:
-                next(sorting_algorithm_generator)
+                next(sorting_algorithm_generator)  #yield returns to here and is called again 
             except StopIteration:
                 sorting = False
         else:
