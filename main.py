@@ -23,9 +23,15 @@ class DrawInformation:
     def __init__(self, width, height, lst):
         self.width = width
         self.height = height
-        self.window = pygame.display.set_mode((self.width, self.height))
+        self.window = pygame.display.set_mode(
+            (self.width, self.height), pygame.RESIZABLE)
         pygame.display.set_caption("Sorting Algorithm Visualizer")
         self.set_list(lst)
+
+    def set_dimensions(self):
+        self.width, self.height = self.window.get_size()
+        self.set_list(self.lst)
+        
 
     def set_list(self, lst):
         self.lst = lst
@@ -147,8 +153,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            if event.type == pygame.VIDEORESIZE:
+                draw_info.set_dimensions()
             if event.type != pygame.KEYDOWN:
                 continue
+
             if event.key == pygame.K_r:
                 lst = generate_starting_list(n, min_val, max_val)
                 draw_info.set_list(lst)
@@ -162,11 +171,11 @@ def main():
             elif event.key == pygame.K_d and not sorting:
                 ascending = False
             elif event.key == pygame.K_i and not sorting:
-                sorting_algorithm=insertion_sort
-                sorting_algo_name="Insertion Sort"
+                sorting_algorithm = insertion_sort
+                sorting_algo_name = "Insertion Sort"
             elif event.key == pygame.K_b and not sorting:
-                sorting_algorithm=bubble_sort
-                sorting_algo_name="Bubble Sort"
+                sorting_algorithm = bubble_sort
+                sorting_algo_name = "Bubble Sort"
 
     pygame.quit()
 
